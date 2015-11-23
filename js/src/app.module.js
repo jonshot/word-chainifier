@@ -10,6 +10,7 @@
  * @todo: Make sure the words contain only alphas
  * @todo: Find all matches of next step in chain; keep repeating for until word is matched (research optimisations) and all chains met (reduce or something)
  * @todo: Research Eulerian path, http://stackoverflow.com/questions/9268709/detecting-when-matrix-multiplication-is-possible/9268893#9268893 
+ * @todo: http://wordmorph.sarangconsulting.com/faq.php#_Examples_and_Details_
  * @todo: Try sending to Clojure API or something as will be quicker using multi-threading etc...
  * @todo: Bootstrap front-end
  * @todo: Form validation
