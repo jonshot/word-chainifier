@@ -1,51 +1,65 @@
 <!doctype html>
 <html lang="en" ng-app="wordChainifierApp">
-    <head>
-        <meta charset="UTF-8">
-        <title>Word Chainifier</title>
-        <link  href="css/styles.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <header class="header">
-            <div class="container">
-                <div class="row-sm-12">
-                    <h1>Word Chainifier</h1> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Word Chainifier</title>
+    <link  href="css/styles.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="row-sm-12">
+          <h1>Word Chainifier</h1> 
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <div class="row">
+        <div class="col-sm-6">   
+          <h2>Word Chainifier</h2>
+          <p class="lead">Enter a start and end word in the boxes below to generate a word chain.</p>
+          <div ng-controller="formCtrl" ng-cloak>
+            <form name="wordForm" class="card card-block" ng-submit="submit(wordForm.$valid)" novalidate>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-6" ng-class="{ 'has-error' : hasError(wordForm, 'firstWord')}">
+                    <label class="control-label" for="firstWord">First word</label>
+                    <input type="text" placeholder="e.g. 'cat'" name="firstWord" id="firstWord" class="form-control" 
+                           ng-model="words.firstWord" 
+                           ng-pattern="/^[a-zA-Z]+$/" 
+                           ng-model-options="{ debounce: 250 }"
+                           required>
+                    <span class="help-block text-danger" ng-show="wordForm.firstWord.$error.required && wordForm.firstWord.$touched">First word is required</span>
+                    <span class="help-block text-danger" ng-show="wordForm.firstWord.$error.pattern">First word must be a valid word</span>
+                  </div>
+                  <div class="col-sm-6" ng-class="{ 'has-error' : hasError(wordForm, 'secondWord') }">
+                    <label class="control-label" for="secondWord">Second word</label>
+                    <input type="text" placeholder="e.g. 'hat'" name="secondWord" id="secondWord" class="form-control" 
+                           ng-model="words.secondWord"
+                           ng-pattern="/^[a-zA-Z]+$/"
+                           ng-model-options="{ debounce: 250 }"
+                           required>
+                    <span class="help-block text-danger" ng-show="wordForm.secondWord.$error.required && wordForm.secondWord.$touched">Second word is required</span>
+                    <span class="help-block text-danger" ng-show="wordForm.secondWord.$error.pattern">Second word must be a valid word</span>
+                  </div>
                 </div>
-            </div>
-        </header>
-        <main class="container">
-            <div class="row">
-                <div class="col-sm-6">   
-                    <h2>Word Chainifier</h2>
-                    <p class="lead">Enter a start and end word in the boxes below to generate a word chain.</p>
-                    <form action="" class="card card-block" ng-controller="formCtrl">
-                        <div class="alert alert-success alert-danger">
-                            Error!
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <label class="control-label" for="firstWord">First word</label>
-                                    <input type="text" placeholder="First word" name="firstWord" class="form-control" required> 
-                                </div>
-                                <div class="col-sm-6">
-                                    <label class="control-label" for="secondWord">Second word</label>
-                                    <input type="text" placeholder="Second word" name="secondWord" class="form-control" required>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary" ng-click="submitForm()">Generate word chain</button>
-                    </form>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card card-block">
-                        <h2 class="card-title">Word Chain</h2>
-                        <p class="card-text text-muted">No chain</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-        <script src="js/libs.min.js"></script>
-        <script src="js/app.min.js"></script>
-    </body>
+              </div>
+              <button type="submit" class="btn btn-primary" ng-disabled="wordForm.$invalid">Generate word chain</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card card-block" ng-controller="resultsBoxCtrl">
+            <h2 class="card-title">Word Chain</h2>
+            <p class="card-text text-muted" ng-show="noResult.visible">{{noResult.text}}</p>
+            <ul ng-show="!noResult.visible">
+              <li ng-repeat="link in chain" class="label label-pill label-default">{{link}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="js/libs.min.js"></script>
+    <script src="js/app.min.js"></script>
+  </body>
 </html>
