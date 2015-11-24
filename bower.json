@@ -1,0 +1,27 @@
+{
+  "name": "i108",
+  "version": "0.0.0",
+  "authors": [
+    "Jonny Cheetham <jonny.cheetham@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~4.0.0",
+	"angular": "~1.4.1",
+	"angular-sanitize": "~1.4.1",
+	"underscore": "~1.8.3",
+	"jquery": "~2.1.4"
+  }
+}

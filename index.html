@@ -6,25 +6,30 @@
         <link  href="css/styles.min.css" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <h1>Word Chainifier</h1>
+        <header class="header">
+            <div class="container">
+                <div class="row-sm-12">
+                    <h1>Word Chainifier</h1> 
+                </div>
+            </div>
         </header>
         <main class="container">
             <div class="row">
-                <div class="col-sm-6">          
-                    <p>Enter two words in the boxes below to generate a word chain.</p>
-                    <div class="alert alert-success alert-danger">
-                        Error!
-                    </div>
-                    <form action="" ng-controller="formCtrl">
+                <div class="col-sm-6">   
+                    <h2>Word Chainifier</h2>
+                    <p class="lead">Enter a start and end word in the boxes below to generate a word chain.</p>
+                    <form action="" class="card card-block" ng-controller="formCtrl">
+                        <div class="alert alert-success alert-danger">
+                            Error!
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label for="firstWord">First word</label>
-                                    <input type="text" placeholder="First word" name="firstWord" class="form-control" required>  
+                                    <label class="control-label" for="firstWord">First word</label>
+                                    <input type="text" placeholder="First word" name="firstWord" class="form-control" required> 
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="secondWord">Second word</label>
+                                    <label class="control-label" for="secondWord">Second word</label>
                                     <input type="text" placeholder="Second word" name="secondWord" class="form-control" required>
                                 </div>
                             </div>
@@ -40,6 +45,7 @@
                 </div>
             </div>
         </main>
+        <script src="js/libs.min.js"></script>
         <script src="js/app.min.js"></script>
     </body>
 </html>

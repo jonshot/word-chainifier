@@ -39,6 +39,21 @@ module.exports = function (grunt) {
                 src: 'Gruntfile.js'
             }
         },
+        concat: {
+            options: {
+                separator: ";\n",
+                stripBanners: true
+            },
+            dist: {
+                src: [
+                    'bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/underscore/underscore-min.js',
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-sanitize/angular-sanitize.min.js'
+                ],
+                dest: 'js/libs.min.js'
+            },
+        },
         sass: {// Task
             dist: {// Target
                 options: {// Target options
@@ -57,13 +72,14 @@ module.exports = function (grunt) {
             },
             scripts: {
                 files: ['js/src/**/*.js'],
-                tasks: ['jshint', 'uglify']
+                tasks: ['jshint', 'uglify', 'concat']
             }
         },
     });
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
