@@ -10,15 +10,15 @@
             [cheshire.core :refer :all]
             [word-chainifier.build-chain :as chain])
   (:gen-class))
-  
+
   (defn json-response [data & [status]]
   {:status (or status 200)
    :headers {"Content-Type" "application/json; charset=utf-8"}
    :body (generate-string  data)})
 
-(defroutes paths  
-  (GET "/build-chain/:start-word/:end-word" [^String start-word ^String end-word]
-       (json-response (chain/build-chain start-word end-word))) 
+(defroutes paths
+  (GET "/build-chain/" {params :params}  [^String start-word ^String end-word]
+       (json-response (chain/build-chain params)))
   (route/not-found (json-response {:error "Not found"})))
 
 (def app
@@ -27,5 +27,5 @@
     wrap-json-params
     (wrap-cors :access-control-allow-origin #".+")))
 
-(defn -main [& args] 
- (run-server #'app {:port 80 :join? false}))
+(defn -main [& args]
+ (run-server #'app {:port 80}))

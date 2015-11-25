@@ -4,6 +4,11 @@
     (if-not (= (count start-word) (count end-word))
     (str "yep")))
 
+
+;load file in two streams in futures
+;when both complete, check for collision, if collision done, if not try again
+
+
 (defn levenshtein [str1 str2]
   (let [len1 (count str1)
         len2 (count str2)]
