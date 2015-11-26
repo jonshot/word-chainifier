@@ -7,6 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.13.3",
+    "lazy": "^1.0.11",
     "lodash": "^3.10.1",
     "nodemon": "^1.8.1",
     "tmp": "0.0.28"

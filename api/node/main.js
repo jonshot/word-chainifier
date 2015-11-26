@@ -24,7 +24,7 @@
     var params = url.parse(req.url, true).query,
             chainBuilder = require('./build-chain');
 
-            jsonResponse(chainBuilder.buildChain(res, params));
+            jsonResponse(res, chainBuilder.buildChain(params));
   });
 
   app.listen(8080);
