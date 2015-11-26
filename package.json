@@ -11,5 +11,8 @@
     "grunt-contrib-uglify": "~0.9.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-sass": "^1.0.0"
+  },
+  "dependencies": {
+    "lazy": "^1.0.11"
   }
 }
