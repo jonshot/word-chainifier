@@ -26,6 +26,9 @@
 
             jsonResponse(res, chainBuilder.buildChain(params));
   });
+  
+  var chainBuilder = require('./build-chain');
+  chainBuilder.buildChain({firstWord: 'coded', lastWord: 'grown'});
 
-  app.listen(8080);
+  //app.listen(8080);
 }());

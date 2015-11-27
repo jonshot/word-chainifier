@@ -3,10 +3,11 @@
 
   var _ = require('lodash'),
           fs = require('fs'),
-          tmp = require('tmp'),
           lazy = require('lazy'),
           DICTIONARY_PATH = './data/dictionary.txt',
-          alphabet = _.range('a'.charCodeAt(0), 'z'.charCodeAt(0)),
+          alphabet = _.map(_.range('a'.charCodeAt(0), 'z'.charCodeAt(0) + 1), function (code) {
+            return String.fromCharCode(code);
+          }),
           error = {
             status: 'error',
             error: ''
@@ -19,17 +20,14 @@
    * @param function callback A callback function to run on completion. Passed the dictionary for the current words
    */
   var _getDictionary = function (length, callback) {
-    
+
     //Dictionary is an object with each letter as a key and an array of words as each value
     var dictionary = _.chain(alphabet)
-            .map(function (code) {
-              return [String.fromCharCode(code).toLowerCase(), []];
+            .map(function (letter) {
+              return [letter, []];
             })
             .zipObject()
             .value();
-
-
-    var stream = fs.createWriteStream(path, {flags: 'a'});
 
     lazy(fs.createReadStream(DICTIONARY_PATH))
             .lines
@@ -42,46 +40,50 @@
               }
             })
             .join(function () {
-              stream.end();
               if (_.isFunction(callback)) {
                 callback(dictionary);
               }
             });
   }
 
+  /**
+   * Builds a word chain object
+   * @param string word The word chain word
+   * @returns object Word chain object
+   */
   var _wordChainFactory = function (word) {
     return {
       prev: null,
       word: word,
-      extendLadder: function (word) {
-        var newLadder = _wordChainFactory(word);
-        newLadder.prev = this;
-        return newLadder;
+      extendChain: function (word) {
+        var newChain = _wordChainFactory(word);
+        newChain.prev = this;
+        return newChain;
       },
-      getLadder: function () {
+      getChain: function () {
         var result = [];
         for (var curr = this; curr !== null; curr = curr.prev) {
           result.push(curr.word);
         }
         result.reverse();
         return result;
-      },
+      }
     };
   }
-  
+
   /**
    * Finds successors to given word
    * @param string word The word to get successors for
    * @param object dictionary The dictionary object containing 
-   * @returns {String|Array|Object|Object.result|String.result|Array.result}
+   * @returns array An array of valid words
    */
   var _findSuccessors = function (word, dictionary) {
     //@todo: make work when start & end lengths are different...
     var result = [];
-    _.times(word.length - 1, function(index) {
-      _.each(alphabet, function(char) {
+    _.times(word.length, function (index) {
+      _.each(alphabet, function (char) {
         var candidate = word.substring(0, index) + char + word.substring(index + 1);
-        if(_.includes(dictionary[candidate.charAt(0)], candidate)) {
+        if (_.includes(dictionary[candidate.charAt(0)], candidate) && candidate !== word) {
           result.push(candidate);
         }
       });
@@ -90,10 +92,10 @@
   }
 
   /**
-   * Finds word
-   * @param {type} firstWord
-   * @param {type} lastWord
-   * @returns {unresolved}
+   * Finds word chain
+   * 
+   * @param string firstWord
+   * @param string lastWord
    */
   var _findChain = function (firstWord, lastWord) {
 
@@ -103,6 +105,28 @@
               usedWords = [];
 
       workList.push(_wordChainFactory(firstWord));
+      
+
+
+//      _.forEach(workList, function () {
+//
+//        var curChain = workList.shift();
+//
+//        if (_.includes(usedWords, curChain.word)) {
+//          return;
+//        }
+//
+//        usedWords.push(curChain.word);
+//
+//        if (curChain.word === lastWord) {
+//          return curChain.getChain();
+//        }
+//
+//        _.each(_findSuccessors(curChain.word, dictionary), function (successor) {
+//          workList.push(curChain.extendChain(successor));
+//        });
+//
+//      });
 
       while (workList.length) {
 
@@ -118,9 +142,9 @@
           return curChain.getLadder();
         }
 
-        _.each(_findSuccessors(curChain.word, dictionary), function(successor) {
-          workList.push(curChain.extendLadder(successor));
-        });        
+        _.each(_findSuccessors(curChain.word, dictionary), function (successor) {
+          workList.push(curChain.extendChain(successor));
+        });
       }
     });
   }
@@ -173,27 +197,3 @@
     }
   };
 }(module));
-//
-//(defn next-steps
-//  [word goal]
-//  (remove (partial = word)
-//    (for [i (range (count word))]
-//      (apply str (assoc (vec (seq word)) i (nth goal i))))))
-//
-//(defn ladder-path
-//  [word goal path]
-//  (let [steps (next-steps word goal)]
-//    (if (= (count steps) 1)
-//      (conj path goal)
-//      (loop [[s & r :as sts] steps]
-//        (if (empty? sts)
-//          []
-//          (if (contains? words s)
-//            (ladder-path s goal (conj path s))
-//            (recur r)))))))
-//
-//(defn ladder
-//  [word goal]
-//  (if (= word goal)
-//    [word]
-//    (ladder-path word goal [word])))
