@@ -3,6 +3,7 @@
 
   var express = require('express'),
        url = require('url'),
+       chainBuilder = require('./build-chain'),
           app = express();
 
   /**
@@ -21,14 +22,16 @@
    */
   app.get('/build-chain', function (req, res) {
 
-    var params = url.parse(req.url, true).query,
-            chainBuilder = require('./build-chain');
-
-            jsonResponse(res, chainBuilder.buildChain(params));
+    var params = url.parse(req.url, true).query;
+    chainBuilder.buildChain(params, function(result) {
+      jsonResponse(res, result);
+    });    
   });
   
-  var chainBuilder = require('./build-chain');
-  chainBuilder.buildChain({firstWord: 'coded', lastWord: 'grown'});
+//  var chainBuilder = require('./build-chain');
+//  chainBuilder.buildChain({firstWord: 'coded', lastWord: 'grown'}, function(result) {
+//    console.log(result);
+//  });
 
-  //app.listen(8080);
+  app.listen(8080);
 }());

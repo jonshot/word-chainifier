@@ -7,11 +7,19 @@
           DICTIONARY_PATH = './data/dictionary.txt',
           alphabet = _.map(_.range('a'.charCodeAt(0), 'z'.charCodeAt(0) + 1), function (code) {
             return String.fromCharCode(code);
-          }),
-          error = {
-            status: 'error',
-            error: ''
-          };
+          });
+
+  /**
+   * Gets a response object
+   * @returns object Response object
+   */
+  var _getResponse = function () {
+    return {
+      success: false,
+      error: '',
+      data: null
+    }
+  }
 
   /**
    * Gets dictionary to use for search
@@ -40,9 +48,7 @@
               }
             })
             .join(function () {
-              if (_.isFunction(callback)) {
-                callback(dictionary);
-              }
+              callback(dictionary);
             });
   }
 
@@ -61,9 +67,12 @@
         return newChain;
       },
       getChain: function () {
-        var result = [];
-        for (var curr = this; curr !== null; curr = curr.prev) {
-          result.push(curr.word);
+
+        var result = [],
+                curNode = this;
+
+        for (curNode; curNode !== null; curNode = curNode.prev) {
+          result.push(curNode.word);
         }
         result.reverse();
         return result;
@@ -94,39 +103,19 @@
   /**
    * Finds word chain
    * 
-   * @param string firstWord
-   * @param string lastWord
+   * @param string firstWord First word in the chain
+   * @param string lastWord Last word in the chain
+   * @param string callback Function to call when chain completes
    */
-  var _findChain = function (firstWord, lastWord) {
+  var _findChain = function (firstWord, lastWord, callback) {
 
-    _getDictionary(firstWord.length, function (dictionary) {
+    return _getDictionary(firstWord.length, function (dictionary) {
 
       var workList = [],
-              usedWords = [];
+              usedWords = [],
+              chain;
 
       workList.push(_wordChainFactory(firstWord));
-      
-
-
-//      _.forEach(workList, function () {
-//
-//        var curChain = workList.shift();
-//
-//        if (_.includes(usedWords, curChain.word)) {
-//          return;
-//        }
-//
-//        usedWords.push(curChain.word);
-//
-//        if (curChain.word === lastWord) {
-//          return curChain.getChain();
-//        }
-//
-//        _.each(_findSuccessors(curChain.word, dictionary), function (successor) {
-//          workList.push(curChain.extendChain(successor));
-//        });
-//
-//      });
 
       while (workList.length) {
 
@@ -139,13 +128,18 @@
         usedWords.push(curChain.word);
 
         if (curChain.word === lastWord) {
-          return curChain.getLadder();
+          chain = curChain.getChain();
         }
 
         _.each(_findSuccessors(curChain.word, dictionary), function (successor) {
           workList.push(curChain.extendChain(successor));
         });
       }
+
+      response.success = true;
+      response.data = _.isArray(chain) ? chain : 'Word chain not found';
+      callback(response);
+
     });
   }
 
@@ -156,44 +150,47 @@
      * @param object params The query string params object containing:
      *  - firstWord string The first word in the chain
      *  - secondWord string The second word in the chain
+     *  @param function callback Callback function to execute when chain found
      *  
      * @returns array The word chain
      */
-    buildChain: function (params) {
+    buildChain: function (params, callback) {
+
+      var response = _getResponse();
 
       if (!_.has(params, 'firstWord') || !_.has(params, 'lastWord')) {
-        error.error = 'firstWord and lastWord are required';
-        return error;
+        response.error = 'firstWord and lastWord are required';
+        callback(response);
       }
 
       if (!_.every([params.firstWord, params.lastWord], function (word) {
         return _.isString(word);
       })) {
-        error.error = 'firstWord and lastWord must be strings';
-        return error;
+        response.error = 'firstWord and lastWord must be strings';
+        callback(response);
       }
 
       var firstWord = params.firstWord.toLowerCase(),
               lastWord = params.lastWord.toLowerCase();
 
       if (firstWord.length !== lastWord.length) {
-        error.error = 'firstWord and lastWord must be the same length';
-        return error;
+        response.error = 'firstWord and lastWord must be the same length';
+        callback(response);
       }
 
       if (firstWord === lastWord) {
-        error.error = 'firstWord and lastWord must be different';
-        return error;
+        response.error = 'firstWord and lastWord must be different';
+        callback(response);
       }
 
       if (!_.every([firstWord, lastWord], function (word) {
         return /^[a-zA-Z]+$/.test(word);
       })) {
-        error.error = 'firstWord and lastWord can only contain letters';
-        return error;
+        response.error = 'firstWord and lastWord can only contain letters';
+        callback(response);
       }
 
-      _findChain(firstWord, lastWord);
+      _findChain(firstWord, lastWord, callback);
     }
   };
 }(module));
