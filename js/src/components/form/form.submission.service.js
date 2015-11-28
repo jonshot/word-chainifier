@@ -11,6 +11,7 @@ var app = app || angular.module('wordChainifierApp', []);
           *   - secondWord string Second word in the chain
           */
          buildChain: function(words) {
+           $rootScope.$broadcast('building-chain');
            $http({
                     method: 'GET',
                     url: '/build-chain',

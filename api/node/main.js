@@ -16,6 +16,11 @@
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(response));
   }
+  
+  /**
+   * Static files
+   */
+  app.use(express.static('../../'));
 
   /**
    * Returns a word chain response

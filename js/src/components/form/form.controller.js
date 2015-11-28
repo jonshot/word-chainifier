@@ -24,9 +24,7 @@ var app = app || angular.module('wordChainifierApp', []);
        */
       $scope.submit = function(isValid) {
         if(isValid) {
-          formSubmissionService.buildChain($scope.words).then(function() {
-            
-          });
+          formSubmissionService.buildChain($scope.words);
         }
       }
   }]);

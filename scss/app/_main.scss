@@ -4,3 +4,19 @@
     color: $white;
     margin-bottom: $spacer;
 }
+
+.results-box {
+    text-align: center;
+}
+
+.chain {
+    padding: 0;    
+    &__link {
+        display: block;
+        text-align: center;
+        font-size: 1.5rem;
+        .label {
+            margin: 0 auto;
+        }
+    }
+}
