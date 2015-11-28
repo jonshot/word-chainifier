@@ -12,10 +12,10 @@ module.exports = function (grunt) {
                 screwIE8: true,
                // beautify: true
             },
-            joules: {
+            js: {
                 files: {'js/app.min.js': [
                         'js/src/components/**/*.js',
-                        'js/src/app.module.js'
+                        'js/src/app.js'
                     ]}
             }
         },
@@ -47,9 +47,8 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/underscore/underscore-min.js',
                     'bower_components/angular/angular.min.js',
-                    'bower_components/angular-sanitize/angular-sanitize.min.js'
+                    'bower_components/angular-animate/angular-animate.min.js',
                 ],
                 dest: 'js/libs.min.js'
             },

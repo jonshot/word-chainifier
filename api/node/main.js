@@ -13,7 +13,7 @@
    * @param response The response to send
    */
   var jsonResponse = function (res, response) {
-    res.setHeader('Content-Type', 'application/json');
+    //res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(response));
   }
   
@@ -38,5 +38,5 @@
 //    console.log(result);
 //  });
 
-  app.listen(8080);
+  app.listen(80);
 }());

@@ -1,3 +1,10 @@
+/**
+ * @todo: Research Eulerian path, http://stackoverflow.com/questions/9268709/detecting-when-matrix-multiplication-is-possible/9268893#9268893 
+ * @todo: http://wordmorph.sarangconsulting.com/faq.php#_Examples_and_Details_
+ * @todo: Levenshtein distance http://yomguithereal.github.io/clj-fuzzy/clojure.html https://en.wikipedia.org/wiki/Hamming_distance word ladder
+ * @todo: Breadth first search http://www.keithschwarz.com/interesting/code/word-ladder/ladder.js.html http://www.problemotd.com/problem/word-ladder/
+ * @todo: BFS from both nodes terminate when collision
+ */
 'use strict';
 (function (module) {
 
@@ -176,6 +183,7 @@
             if (!_.has(params, 'firstWord') || !_.has(params, 'lastWord')) {
                 response.error = 'firstWord and lastWord are required';
                 callback(response);
+                return;
             }
 
             if (!_.every([params.firstWord, params.lastWord], function (word) {
@@ -183,6 +191,7 @@
             })) {
                 response.error = 'firstWord and lastWord must be strings';
                 callback(response);
+                return;
             }
 
             var firstWord = params.firstWord.toLowerCase(),
@@ -191,11 +200,13 @@
             if (firstWord.length !== lastWord.length) {
                 response.error = 'firstWord and lastWord must be the same length';
                 callback(response);
+                return;
             }
 
             if (firstWord === lastWord) {
                 response.error = 'firstWord and lastWord must be different';
                 callback(response);
+                return;
             }
 
             if (!_.every([firstWord, lastWord], function (word) {
@@ -203,6 +214,7 @@
             })) {
                 response.error = 'firstWord and lastWord can only contain letters';
                 callback(response);
+                return;
             }
 
             _findChain(firstWord, lastWord, callback);

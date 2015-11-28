@@ -1,7 +1,7 @@
 'use strict';
-var app = app || angular.module('wordChainifierApp', []);
-(function(app) {
-  app.controller('formCtrl', ['$scope', 'formSubmissionService', function($scope, formSubmissionService) {
+var ctrl = ctrl || angular.module('controllers', []);
+(function(ctrl) {
+  ctrl.controller('formCtrl', ['$scope', 'formSubmissionService', function($scope, formSubmissionService) {
       
       $scope.words = {
         firstWord: '',
@@ -28,4 +28,4 @@ var app = app || angular.module('wordChainifierApp', []);
         }
       }
   }]);
-}(app));
+}(ctrl));

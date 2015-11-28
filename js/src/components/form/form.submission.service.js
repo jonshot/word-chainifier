@@ -1,7 +1,7 @@
 'use strict';
-var app = app || angular.module('wordChainifierApp', []);
-(function(app) {
-   app.factory('formSubmissionService', ['$rootScope', '$http', function ($rootScope, $http) {
+var services = services || angular.module('services', []);
+(function(services) {
+   services.factory('formSubmissionService', ['$rootScope', '$http', function ($rootScope, $http) {
        return {
          /**
           * Passes words to the API for chain building
@@ -22,4 +22,4 @@ var app = app || angular.module('wordChainifierApp', []);
          }
        };
    }]);
-}(app));
+}(services));

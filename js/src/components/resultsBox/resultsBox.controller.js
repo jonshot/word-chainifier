@@ -1,7 +1,7 @@
 'use strict';
-var app = app || angular.module('wordChainifierApp', []);
-(function (app) {
-    app.controller('resultsBoxCtrl', ['$scope', function ($scope) {
+var ctrl = ctrl || angular.module('controllers', []);
+(function (ctrl) {
+    ctrl.controller('resultsBoxCtrl', ['$scope', function ($scope) {
 
             //The word chain array
             $scope.chain = [];
@@ -52,4 +52,4 @@ var app = app || angular.module('wordChainifierApp', []);
                 $scope.chain = result;
             });
         }]);
-}(app));
+}(ctrl));
