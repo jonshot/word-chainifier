@@ -20,7 +20,7 @@
   /**
    * Static files
    */
-  app.use(express.static('./static'));
+  app.use(express.static('static'));
 
   /**
    * Returns a word chain response
@@ -37,6 +37,7 @@
 //  chainBuilder.buildChain({firstWord: 'coded', lastWord: 'grown'}, function(result) {
 //    console.log(result);
 //  });
-
-  app.listen(80);
+  
+  var port = process.env.PORT || 80;
+  app.listen(port);
 }());
