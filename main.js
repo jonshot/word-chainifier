@@ -20,7 +20,7 @@
   /**
    * Static files
    */
-  app.use(express.static('../../'));
+  app.use(express.static('./static'));
 
   /**
    * Returns a word chain response

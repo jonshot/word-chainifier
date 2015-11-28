@@ -13,9 +13,9 @@ module.exports = function (grunt) {
                // beautify: true
             },
             js: {
-                files: {'js/app.min.js': [
-                        'js/src/components/**/*.js',
-                        'js/src/app.js'
+                files: {'static/js/app.min.js': [
+                        'static/js/src/components/**/*.js',
+                        'static/js/src/app.js'
                     ]}
             }
         },
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-animate/angular-animate.min.js',
                 ],
-                dest: 'js/libs.min.js'
+                dest: 'static/js/libs.min.js'
             },
         },
         sass: {// Task
@@ -60,17 +60,17 @@ module.exports = function (grunt) {
                     compass: true
                 },
                 files: {// Dictionary of files
-                    'css/styles.min.css': 'scss/styles.scss'
+                    'static/css/styles.min.css': 'static/scss/styles.scss'
                 }
             }
         },
         watch: {
             scss: {
-                files: ['scss/**/*.scss'],
+                files: ['static/scss/**/*.scss'],
                 tasks: ['sass']
             },
             scripts: {
-                files: ['js/src/**/*.js'],
+                files: ['static/js/src/**/*.js'],
                 tasks: ['jshint', 'uglify', 'concat']
             }
         },

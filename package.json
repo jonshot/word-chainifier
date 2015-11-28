@@ -1,4 +1,19 @@
 {
+  "version": "1.0.0",
+  "name": "word-chainifier",
+  "description": "Word Chainifier app",
+  "repository":{ 
+      "type" : "git", 
+      "url" : "https://github.com/jonshot/word-chainifier.git"
+  },
+  "main": "main.js",
+  "author": "Jonny Cheetham",
+  "dependencies": {
+    "async": "^1.5.0",
+    "express": "^4.13.3",
+    "lazy": "^1.0.11",
+    "lodash": "^3.10.1"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -11,8 +26,5 @@
     "grunt-contrib-uglify": "~0.9.1",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-sass": "^1.0.0"
-  },
-  "dependencies": {
-    "lazy": "^1.0.11"
   }
 }
