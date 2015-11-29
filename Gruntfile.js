@@ -11,9 +11,9 @@ module.exports = function (grunt) {
                 screwIE8: true
             },
             js: {
-                files: {'static/js/app.min.js': [
-                        'static/js/src/components/**/*.js',
-                        'static/js/src/app.js'
+                files: {'lib/static/js/app.min.js': [
+                        'lib/static/js/src/components/**/*.js',
+                        'lib/static/js/src/app.js'
                     ]}
             }
         },
@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/angular/angular.min.js'
                 ],
-                dest: 'static/js/libs.min.js'
+                dest: 'lib/static/js/libs.min.js'
             },
         },
         sass: {// Task
@@ -57,17 +57,17 @@ module.exports = function (grunt) {
                     compass: true
                 },
                 files: {// Dictionary of files
-                    'static/css/styles.min.css': 'static/scss/styles.scss'
+                    'lib/static/css/styles.min.css': 'lib/static/scss/styles.scss'
                 }
             }
         },
         watch: {
             scss: {
-                files: ['static/scss/**/*.scss'],
+                files: ['lib/static/scss/**/*.scss'],
                 tasks: ['sass']
             },
             scripts: {
-                files: ['static/js/src/**/*.js'],
+                files: ['lib/static/js/src/**/*.js'],
                 tasks: ['jshint', 'uglify', 'concat']
             }
         },
