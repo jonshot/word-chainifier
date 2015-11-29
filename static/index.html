@@ -1,68 +1,68 @@
 <!doctype html>
 <html lang="en" data-ng-app="wordChainifierApp">
-  <head>
-    <meta charset="UTF-8">
-    <title>Word Chainifier</title>
-    <link  href="css/styles.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <header class="header">
-      <div class="container">
-        <div class="row-sm-12">
-          <h1>Word Chainifier</h1> 
-        </div>
-      </div>
-    </header>
-    <main class="container">
-      <div class="row">
-        <div class="col-sm-6">   
-          <h2>Word Chainifier</h2>
-          <p class="lead">Enter a start and end word to generate a word chain.</p>
-          <div data-ng-controller="formCtrl">
-            <form name="wordForm" class="card card-block" data-ng-submit="submit(wordForm.$valid)" novalidate>
-              <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-6" data-ng-class="{ 'has-error' : hasError(wordForm, 'firstWord')}">
-                    <label class="control-label" for="firstWord">First word</label>
-                    <input type="text" placeholder="e.g. 'hello'" name="firstWord" id="firstWord" class="form-control" 
-                           data-ng-model="words.firstWord" 
-                           data-ng-pattern="/^[a-zA-Z]+$/" 
-                           data-ng-model-options="{ debounce: 250 }"
-                           required>
-                    <span class="help-block text-danger" data-ng-show="wordForm.firstWord.$error.required && wordForm.firstWord.$touched">First word is required</span>
-                    <span class="help-block text-danger" data-ng-show="wordForm.firstWord.$error.pattern">First word must be a valid word</span>
-                  </div>
-                  <div class="col-sm-6" data-ng-class="{ 'has-error' : hasError(wordForm, 'lastWord') }">
-                    <label class="control-label" for="lastWord">Last word</label>
-                    <input type="text" placeholder="e.g. 'world'" name="lastWord" id="lastWord" class="form-control" 
-                           data-ng-model="words.lastWord"
-                           data-ng-pattern="/^[a-zA-Z]+$/"
-                           data-ng-model-options="{ debounce: 250 }"
-                           required>
-                    <span class="help-block text-danger" data-ng-show="wordForm.lastWord.$error.required && wordForm.lastWord.$touched">Second word is required</span>
-                    <span class="help-block text-danger" data-ng-show="wordForm.lastWord.$error.pattern">Second word must be a valid word</span>
-                  </div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Word Chainifier</title>
+        <link  href="css/styles.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div class="row-sm-12">
+                    <h1>Word Chainifier</h1> 
                 </div>
-              </div>
-              <button type="submit" class="btn btn-primary" data-ng-disabled="wordForm.$invalid">Generate word chain</button>
-            </form>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card card-block results-box" data-ng-controller="resultsBoxCtrl">
-            <h2 class="card-title">Word Chain</h2>
-            <p class="card-text text-muted" data-ng-show="noResult.visible && !loading" data-ng-class="{warning: noResult.error}">{{noResult.text}}</p>
-            <img src="img/ajax-loader.gif" alt="" data-ng-show="loading">
-            <ul data-ng-show="!noResult.visible && !loading" class="chain">
-              <li data-ng-repeat="link in chain" class="chain__link">
-                  <span class="label label-pill label-default">{{link}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </main>
-    <script src="js/libs.min.js"></script>
-    <script src="js/app.min.js"></script>
-  </body>
+            </div>
+        </header>
+        <main class="container">
+            <div class="row">
+                <div class="col-sm-6">   
+                    <h2>Word Chainifier</h2>
+                    <p class="lead">Enter a start and end word to generate a word chain.</p>
+                    <div data-ng-controller="formCtrl">
+                        <form name="wordForm" class="card card-block" data-ng-submit="submit(wordForm.$valid)" novalidate>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6" data-ng-class="{ 'has-error' : hasError(wordForm, 'firstWord')}">
+                                        <label class="control-label" for="firstWord">First word</label>
+                                        <input type="text" placeholder="e.g. 'hello'" name="firstWord" id="firstWord" class="form-control" 
+                                               data-ng-model="words.firstWord" 
+                                               data-ng-pattern="/^[a-zA-Z]+$/" 
+                                               data-ng-model-options="{ debounce: 250 }"
+                                               required>
+                                        <span class="help-block text-danger" data-ng-show="wordForm.firstWord.$error.required && wordForm.firstWord.$touched">First word is required</span>
+                                        <span class="help-block text-danger" data-ng-show="wordForm.firstWord.$error.pattern">First word must be a valid word</span>
+                                    </div>
+                                    <div class="col-sm-6" data-ng-class="{ 'has-error' : hasError(wordForm, 'lastWord') }">
+                                        <label class="control-label" for="lastWord">Last word</label>
+                                        <input type="text" placeholder="e.g. 'world'" name="lastWord" id="lastWord" class="form-control" 
+                                               data-ng-model="words.lastWord"
+                                               data-ng-pattern="/^[a-zA-Z]+$/"
+                                               data-ng-model-options="{ debounce: 250 }"
+                                               required>
+                                        <span class="help-block text-danger" data-ng-show="wordForm.lastWord.$error.required && wordForm.lastWord.$touched">Last word is required</span>
+                                        <span class="help-block text-danger" data-ng-show="wordForm.lastWord.$error.pattern">Last word must be a valid word</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" data-ng-disabled="wordForm.$invalid">Generate word chain</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card card-block results-box" data-ng-controller="resultsBoxCtrl">
+                        <h2 class="card-title">Word Chain</h2>
+                        <p class="card-text text-muted" data-ng-show="noResult.visible && !loading" data-ng-class="{warning: noResult.error}">{{noResult.text}}</p>
+                        <img src="img/ajax-loader.gif" alt="" data-ng-class="{'is-hidden':!loading, 'is-showing':loading}">
+                        <ul data-ng-show="!noResult.visible && !loading" class="chain">
+                            <li data-ng-repeat="link in chain" class="chain__link">
+                                <span class="label label-pill label-default">{{link}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="js/libs.min.js"></script>
+        <script src="js/app.min.js"></script>
+    </body>
 </html>

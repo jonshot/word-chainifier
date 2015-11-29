@@ -1,5 +1,5 @@
 'use strict';
-(function () {
+(function (process) {
 
   var express = require('express'),
        url = require('url'),
@@ -40,4 +40,4 @@
   
   var port = process.env.PORT || 80;
   app.listen(port);
-}());
+}(process));

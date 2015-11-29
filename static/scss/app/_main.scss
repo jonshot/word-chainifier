@@ -5,6 +5,10 @@
     margin-bottom: $spacer;
 }
 
+.help-block {
+    font-size: $font-size-sm;
+}
+
 .results-box {
     text-align: center;
 }
@@ -14,9 +18,50 @@
     &__link {
         display: block;
         text-align: center;
-        font-size: 1.5rem;
+        font-size: $font-size-h4;
+        animation:fade-grow 0.5s forwards;
+        opacity: 0;
+        @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+                animation-delay: #{$i/4}s;
+            }
+        }
         .label {
             margin: 0 auto;
         }
     }
+}
+
+@keyframes fade-grow {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    80% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.is-hidden {
+    display: none;
+    transition:display 0s;
+    transition-delay:0.5s;
+    animation: fadeIn 0.5s reverse;
+}
+
+.is-showing {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
 }

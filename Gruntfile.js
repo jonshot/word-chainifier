@@ -8,9 +8,7 @@ module.exports = function (grunt) {
         // Task configuration. 
         uglify: {
             options: {
-               // sourceMap:true,
-                screwIE8: true,
-               // beautify: true
+                screwIE8: true
             },
             js: {
                 files: {'static/js/app.min.js': [
@@ -47,8 +45,7 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/angular/angular.min.js',
-                    'bower_components/angular-animate/angular-animate.min.js',
+                    'bower_components/angular/angular.min.js'
                 ],
                 dest: 'static/js/libs.min.js'
             },
