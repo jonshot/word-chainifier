@@ -21,6 +21,8 @@
         font-size: $font-size-h4;
         animation:fade-grow 0.5s forwards;
         opacity: 0;
+        //Default animation length if > 20 items in chain
+        animation-delay:5s; 
         @for $i from 1 through 20 {
             &:nth-child(#{$i}) {
                 animation-delay: #{$i/4}s;
