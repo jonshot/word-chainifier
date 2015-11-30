@@ -61,9 +61,6 @@
 
 .is-showing {
     animation: fadeIn 0.5s;
-    &.row {
-      display: block;
-    }
 }
 
 @keyframes fadeIn {
