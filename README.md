@@ -4,13 +4,12 @@ Word Chainifier
 # Table of contents:
 
 [Introduction](#Introduction)
-
 [Installation](#Installation)
 
 <a name="Introduction" />
 # Introduction
 
-Create a word chain from a given start and end word. Demo online at: <a href="http://word-chainifier.herokuapp.com">http://word-chainifier.herokuapp.com</a>
+Creates a word chain from a given start and end word. Demo online at: <a href="http://word-chainifier.herokuapp.com">http://word-chainifier.herokuapp.com</a>
 
 <a name="Installation" />
 # Installation
