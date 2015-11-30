@@ -2,9 +2,9 @@
   "version": "1.0.0",
   "name": "word-chainifier",
   "description": "Word Chainifier app",
-  "repository":{ 
-      "type" : "git", 
-      "url" : "https://github.com/jonshot/word-chainifier.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonshot/word-chainifier.git"
   },
   "main": "main.js",
   "author": "Jonny Cheetham",
@@ -12,7 +12,8 @@
     "async": "^1.5.0",
     "express": "^4.13.3",
     "lazy": "^1.0.11",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "promise": "^7.0.4"
   },
   "engines": {
     "node": ">= 4.2.2"
